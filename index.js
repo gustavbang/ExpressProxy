@@ -7,34 +7,6 @@ var port = 8000;
 var server = "52.58.159.100";
 
 
-function getToken (username, password) {
-  return new Promise(function(resolve, reject) {
-    console.log(username)
-    console.log(password)
-    var options = {
-      method: "POST",
-      uri: `https://${server}:27200/openApi/login`,
-      form: {
-        userName: username,
-        password: password
-      },
-      headers: {},
-      insecure: true,
-      rejectUnauthorized: false
-    };
-
-    rp(options)
-      .then(function(body) {
-        console.log("sending body")
-        return body
-      })
-      .catch(function(err) {
-        console.log("rejected")
-        reject(err);
-      });
-  });
-};
-
 app.use(require("body-parser").json());
 
 app.use(express.static("public"));
@@ -48,19 +20,27 @@ app.get('/express_backend', (req, res) => {
 });
 
 app.post("/express_backend", function(req, res) {
-  getToken(req.body.userName, req.body.password)
-      .then(body => {
-        res.send(body);
+  var options = {
+    method: "POST",
+    uri: `https://${server}:27200/openApi/login`,
+    form: {
+      userName: req.body.userName,
+      password: req.body.password
+    },
+    headers: {},
+    insecure: true,
+    rejectUnauthorized: false
+  };
+
+  rp(options)
+      .then(function(body) {
+        console.log("sending body")
+        console.log(body)
+        res.send(body)
       })
       .catch(err => res.send(err));
 });
 
-app.post("/getToken", function(req, res) {
-  getToken({ ...req.body })
-    .then(body => {
-      res.send(body);
-    })
-    .catch(err => res.send(err));
-});
+
 
 app.listen(port, () => console.log(`App listening on port: ${port}!`));
