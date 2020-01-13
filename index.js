@@ -2,7 +2,7 @@ var path = require("path");
 var rp = require("request-promise");
 var express = require("express");
 var app = express();
-.listen(process.env.PORT || 8000)
+var port = process.env.port || 8000;
 
 var server = "52.58.159.100";
 
