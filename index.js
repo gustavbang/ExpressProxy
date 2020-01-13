@@ -2,11 +2,14 @@ var path = require("path");
 var rp = require("request-promise");
 var express = require("express");
 var app = express();
+var cors = require('cors');
 var port = process.env.port;
 
 var server = "52.58.159.100";
 
 app.use(require("body-parser").json());
+
+app.use(cors());
 
 app.use(express.static("public"));
 
