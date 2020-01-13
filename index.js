@@ -2,7 +2,7 @@ var path = require("path");
 var rp = require("request-promise");
 var express = require("express");
 var app = express();
-var port = process.env.port || 8000;
+var port = process.env.port;
 
 var server = "52.58.159.100";
 
@@ -63,4 +63,5 @@ app.post("/realtime_data", function(req, res) {
 
 
 
-app.listen(port, () => console.log(`App listening on port: ${port}!`));
+app.listen(process.env.PORT, '0.0.0.0')
+
