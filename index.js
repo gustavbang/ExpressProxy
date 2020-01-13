@@ -46,7 +46,7 @@ app.post("/realtime_data", function(req, res) {
   console.log(req.body.openApiroarand)
   var options = {
     method: "POST",
-    uri: 'https://${server}:27200/openApi/queryDeviceDetail?plantid=' + req.body.plantid + '&openApiroarand=' + req.body.openApiroarand,
+    uri: `https://${server}:27200/openApi/queryDeviceDetail?plantid=` + req.body.plantid + `&openApiroarand=` + req.body.openApiroarand,
     form: {},
     headers: {},
     insecure: true,
